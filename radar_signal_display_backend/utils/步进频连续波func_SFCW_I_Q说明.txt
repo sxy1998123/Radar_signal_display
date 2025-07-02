@@ -1,4 +1,4 @@
-输入有6个参数
+generate_step_freq_signal输入有6个参数（信号长度更改为IQ信号生成选择）
 
 fs        # 采样率 (Hz)
 fc_start # 起始频率 (Hz)
@@ -7,3 +7,5 @@ T      # 单个频率持续时间 (s)
 use_iq   # 是否生成IQ信号,true为同时生成I相和Q相信号，Flase为只生成I相信号
 num_steps   # 步进频率点数
 
+输出的时域图像为Stepped Frequency Signal
+频域图像为Frequency Spectrum
