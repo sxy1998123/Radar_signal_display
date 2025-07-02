@@ -9,3 +9,4 @@ num_steps   # 步进频率点数
 
 输出的时域图像为Stepped Frequency Signal
 频域图像为Frequency Spectrum
+I相和Q相输出信号均可分别单独命名保存
