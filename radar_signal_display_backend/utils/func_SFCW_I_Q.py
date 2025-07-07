@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from typing import Tuple, Optional
-
+import logging
 def generate_step_freq_signal(
     fs: float = 3e9,          # 采样率 (Hz)
     fc_start: float = 300e6,  # 起始频率 (Hz)
@@ -155,6 +155,37 @@ def save_signal_with_prompt(signal: np.ndarray, signal_type: str = "I") -> Optio
             retry = input("是否重试? (y/n): ").lower()
             if retry != 'y':
                 return None
+
+def save_signal_with_dir(signal: np.ndarray, signal_type: str = "I", save_dir: str = "") -> Optional[str]:
+    """
+    保存信号到二进制文件，不带提示
+    
+    参数:
+        signal: 输入信号
+        signal_type: 信号类型 ("I"或"Q")
+        save_dir: 保存目录
+    
+    返回:
+        保存的文件名（如果成功），否则返回None
+    """
+    if not save_dir:
+        loggin.error("保存目录不能为空")
+        return None
+    try:
+        filename = f"{save_dir}/{signal_type}_signal.bin"
+        
+        with open(filename, 'wb') as f:
+            f.write(signal.tobytes())
+        
+        print(f"{signal_type}相信号已成功保存到 {save_dir}")
+        return filename
+        
+    except KeyboardInterrupt:
+        print("\n用户取消保存操作")
+        return None
+    except Exception as e:
+        print(f"保存失败: {e}")
+        return None
 
 
 # 使用示例

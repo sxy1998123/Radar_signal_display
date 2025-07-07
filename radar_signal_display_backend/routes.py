@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from datetime import datetime
-from utils.func_SFCW_I_Q import generate_step_freq_signal
+from utils.func_SFCW_I_Q import generate_step_freq_signal, save_signal_with_dir
 import logging
 
 signal_bp = Blueprint('signal', __name__)
@@ -67,13 +67,18 @@ def generate_signal():
         required: true
         description: 单个频点持续时间(s)    
 
+      - name: save_dir
+        in: body
+        type: number
+        required: true
+        description: 保存路径
     responses:
       200:
         description: 信息成功添加
     """
     data = request.get_json()
 
-    required_fields = ['fs', 'fc_start', 'fc_end', 'num_steps', 'use_iq', 'T']
+    required_fields = ['fs', 'fc_start', 'fc_end', 'num_steps', 'use_iq', 'T', 'save_dir']
     for field in required_fields:
         if field not in data:
             return jsonify({"error": f"Missing field: {field}"}), 400
@@ -87,13 +92,19 @@ def generate_signal():
         use_iq = data['use_iq']
         T = data['T']
         i_signal, q_signal = generate_step_freq_signal(fs=fs, fc_start=fc_start, fc_end=fc_end, num_steps=num_steps, use_iq=use_iq, T=T)
-        
+        save_dir = data['save_dir']
+        if use_iq:
+            save_signal_with_dir(i_signal, "I", save_dir)
+            save_signal_with_dir(q_signal, "Q", save_dir)
+        else:
+            save_signal_with_dir(i_signal, "I", save_dir)
         # 返回成功响应
         response = {
             "message": "success",
             "data": {
+                "save_dir": save_dir,
                 "i_signal": i_signal.tolist(),
-                "q_signal": q_signal.tolist() if use_iq else None
+                "q_signal": q_signal.tolist(),
             }
         }
         print(response)

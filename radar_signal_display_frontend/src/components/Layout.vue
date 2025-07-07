@@ -120,8 +120,18 @@ export default {
     BScanChart
   },
   methods: {
+    async showFolderDialog(){
+      const path = await window.electronAPI.openFolderDialog()
+      return path
+    },
     // 信号生成
     async onGenerateSignal() {
+      // todo 弹出文件夹选择框
+      const save_dir = await this.showFolderDialog()
+      console.log(save_dir)
+      if(!save_dir){
+        return false
+      }
       // todo 上传文件
       const {
         signal_type,
@@ -130,7 +140,7 @@ export default {
         fc_end,
         num_steps,
         use_iq,
-        T
+        T,
       } = this.form_generate
       const data = {
         signal_type: Number(signal_type),
@@ -139,7 +149,8 @@ export default {
         fc_end: Number(fc_end),
         num_steps: Number(num_steps),
         use_iq: Boolean(use_iq),
-        T: Number(T)
+        T: Number(T),
+        save_dir
       }
       services.generateSignal(data)
         .then(resp => {
