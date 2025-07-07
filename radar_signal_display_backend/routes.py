@@ -111,3 +111,67 @@ def generate_signal():
         return jsonify(response), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+
+@signal_bp.route('/handle', methods=['GET', 'PUT', 'DELETE'])
+def handle_invalid_methods_2():
+    return jsonify({"error": "Method not allowed"}), 405
+
+@signal_bp.route('/handle', methods=['POST'])
+def handle_signal():
+    """处理信号
+    接收前端传来的信号参数，处理信号并返回
+    ---
+    parameters:
+      - name:  collectionSigFolder
+        in: body
+        type: string
+        required: true
+        description: 采集信号文件夹地址
+
+      - name: referenceSigFolder
+        in: body
+        type: string
+        required: true
+        description: 参考信号文件夹地址
+
+      - name: window_type
+        in: body
+        type: string
+        required: true
+        description: 加窗处理类型
+
+      - name: other_process
+        in: body
+        type: string
+        required: true
+        description: 其他处理      
+    """
+    data = request.get_json()
+
+    required_fields = ['collectionSigFolder','referenceSigFolder','window_type','other_process']
+    for field in required_fields:
+        if field not in data:
+            return jsonify({"error": f"Missing field: {field}"}), 400
+
+    try:
+        # todo: 处理信号并返回
+        collectionSigFolder = data['collectionSigFolder']
+        referenceSigFolder = data['referenceSigFolder']
+        window_type = data['window_type']
+        other_process = data['other_process']
+        # todo: 处理信号并返回4种生成图表数据meta
+ 
+        # 返回成功响应
+        response = {
+            "message": "success",
+            "data": {
+                "collectionSigFolder": collectionSigFolder,
+                "referenceSigFolder": referenceSigFolder,
+                "window_type": window_type,
+                "other_process": other_process,
+            }
+        }        
+        return jsonify(response), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
