@@ -1,7 +1,8 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, send_from_directory,Blueprint
 from flask_cors import CORS
 import logging
-
+from routes import signal_bp
+from flasgger import Swagger 
 
 logging.basicConfig(
     level=logging.INFO,  # 修改日志级别输出所有日志
@@ -9,18 +10,15 @@ logging.basicConfig(
     datefmt='%Y-%m-%d %H:%M:%S',  # 日期时间格式
 )
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='frontend_dist', static_url_path='')
 CORS(app) # 开发环境下允许跨域请求
 
 @app.route('/')
 def index():
-    logging.info('index accessed')
-    return jsonify({"message": "Hello World!"})
+    return send_from_directory(app.static_folder, 'index.html')
 
-@app.route('/api/test')
-def test():
-    logging.info('/api/test accessed')
-    return jsonify({"message": "Flask启动成功!"})
+app.register_blueprint(signal_bp, url_prefix="/api/signal")
+Swagger(app)
 
 if __name__ == '__main__':
     app.run(debug=True)

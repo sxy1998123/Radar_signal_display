@@ -71,7 +71,7 @@ export default {
             }
         },
         uiResize: debounce(function() {
-            console.log("resize");
+            // console.log("resize");
             const {offsetWidth,offsetHeight} = this.$refs.root;
             this.chartContainer.style.width = `${offsetWidth - 1}px`;
             this.chartContainer.style.height = `${offsetHeight - 1}px`;

@@ -7,9 +7,8 @@
 <script>
 import * as echarts from "echarts";
 import { debounce } from "lodash-es";
-import option from "@/utils/demoHeatmap"
 export default {
-  name: "AScanChart",
+  name: "BScanChart",
   created() {
     window.addEventListener("resize", this.uiResize);
   },
@@ -25,7 +24,8 @@ export default {
       chart: null,
       chartContainer: null,
       xData: [],
-      yData: []
+      yData: [],
+      data: []
     };
   },
   methods: {
@@ -35,10 +35,59 @@ export default {
       this.chart.setOption(this.getOption());
     },
     getOption() {
-      return option
+      return {
+        tooltip: {},
+        title: {
+          text: "B-Scan Heatmap"
+        },
+        xAxis: {
+          type: 'category',
+          data: this.xData
+        },
+        yAxis: {
+          type: 'category',
+          data: this.yData
+        },
+        visualMap: {
+          min: 0,
+          max: 1,
+          calculable: true,
+          realtime: false,
+          inRange: {
+            color: [
+              '#313695',
+              '#4575b4',
+              '#74add1',
+              '#abd9e9',
+              '#e0f3f8',
+              '#ffffbf',
+              '#fee090',
+              '#fdae61',
+              '#f46d43',
+              '#d73027',
+              '#a50026'
+            ]
+          }
+        },
+        series: [
+          {
+            name: 'Gaussian',
+            type: 'heatmap',
+            data: this.data,
+            emphasis: {
+              itemStyle: {
+                borderColor: '#333',
+                borderWidth: 1
+              }
+            },
+            progressive: 1000,
+            animation: false
+          }
+        ]
+      }
     },
     uiResize: debounce(function () {
-      console.log("resize");
+      // console.log("resize");
       const { offsetWidth, offsetHeight } = this.$refs.root;
       this.chartContainer.style.width = `${offsetWidth - 1}px`;
       this.chartContainer.style.height = `${offsetHeight - 1}px`;

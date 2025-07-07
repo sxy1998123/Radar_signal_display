@@ -1,7 +1,7 @@
 <template>
-  <div class="a-scan-chart" ref="root">
-    <div class="chart-container" ref="chartContainer"></div>
-  </div>
+    <div class="a-scan-chart" ref="root">
+        <div class="chart-container" ref="chartContainer"></div>
+    </div>
 </template>
 
 <script>
@@ -9,7 +9,7 @@ import * as echarts from "echarts";
 import { debounce } from 'lodash-es';
 export default {
     name: "AScanChart",
-    created(){
+    created() {
         window.addEventListener("resize", this.uiResize);
     },
     beforeDestroy() {
@@ -36,7 +36,7 @@ export default {
                 title: {
                     text: "A-Scan"
                 },
-               grid:{
+                grid: {
                     containLabel: true // 防止数值标签超出图表画布范围
                 },
                 xAxis: {
@@ -54,11 +54,11 @@ export default {
                 series: [
                     {
                         data: [
-                            [10,1],
-                            [20,12],
-                            [30,16],
-                            [40,25],
-                            [50,35],
+                            [10, 1],
+                            [20, 12],
+                            [30, 16],
+                            [40, 25],
+                            [50, 35],
                         ],
                         type: "line",
 
@@ -70,14 +70,14 @@ export default {
                 }
             }
         },
-        uiResize: debounce(function() {
-            console.log("resize");
-            const {offsetWidth,offsetHeight} = this.$refs.root;
+        uiResize: debounce(function () {
+            // console.log("resize");
+            const { offsetWidth, offsetHeight } = this.$refs.root;
             this.chartContainer.style.width = `${offsetWidth - 1}px`;
             this.chartContainer.style.height = `${offsetHeight - 1}px`;
             this.chart && this.chart.resize();
         }, 50)
-   }
+    }
 }
 </script>
 
@@ -86,7 +86,8 @@ export default {
     width: 100%;
     height: 100%;
     box-sizing: border-box;
-    .chart-container{
+
+    .chart-container {
         height: 200px;
         width: 200px;
     }

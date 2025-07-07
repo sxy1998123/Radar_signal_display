@@ -2,35 +2,35 @@
   <div class="layout">
     <div class="form">
       <el-card class="card-form">
-        <el-form ref="form" :model="form_generate" label-width="120px" size="medium">
+        <el-form ref="form" :model="form_generate" label-width="150px" size="medium">
           <span class="form-title">信号生成：</span>
           <el-form-item label="信号类型" size="medium">
-            <el-select v-model="form_generate.region" placeholder="请选择信号类型">
+            <el-select v-model="form_generate.signal_type" placeholder="请选择信号类型">
               <el-option label="高斯脉冲" value="1"></el-option>
               <el-option label="步进频连续波" value="2"></el-option>
               <el-option label="步进频脉冲串" value="3"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="起始频率">
-            <el-input type="number" v-model="form_generate.date1"></el-input>
+          <el-form-item label="采样率(Hz)">
+            <el-input type="number" v-model="form_generate.fs"></el-input>
           </el-form-item>
-          <el-form-item label="终止频率">
-            <el-input type="number" v-model="form_generate.date2"></el-input>
+          <el-form-item label="起始频率(Hz)">
+            <el-input type="number" v-model="form_generate.fc_start"></el-input>
           </el-form-item>
-          <el-form-item label="频率点数">
-            <el-input type="number" v-model="form_generate.date3"></el-input>
+          <el-form-item label="终止频率(Hz)">
+            <el-input type="number" v-model="form_generate.fc_end"></el-input>
           </el-form-item>
-          <el-form-item label="信号长度">
-            <el-input type="number" v-model="form_generate.date3"></el-input>
+          <el-form-item label="步进频率点数">
+            <el-input type="number" v-model="form_generate.num_steps"></el-input>
           </el-form-item>
-          <el-form-item label="单个频点时间">
-            <el-input type="number" v-model="form_generate.desc"></el-input>
+          <el-form-item label="同时生成I/Q信号">
+            <el-switch v-model="form_generate.use_iq"></el-switch>
           </el-form-item>
-          <el-form-item label="采样率">
-            <el-input type="number" v-model="form_generate.desc"></el-input>
+          <el-form-item label="单个频点持续时间(s)">
+            <el-input type="number" v-model="form_generate.T"></el-input>
           </el-form-item>
           <div class="btns">
-            <el-button type="primary" @click="onGenerateSignal">生成信号</el-button>
+            <el-button type="primary" @click="onGenerateSignal">生成并保存信号</el-button>
           </div>
         </el-form>
         <el-form ref="form" :model="form_handle" label-width="140px" size="medium">
@@ -85,23 +85,26 @@
 </template>
 
 <script>
+/***** 图表组件引入start *****/
 import TimeDomainChart from '@/components/charts/TimeDomainChart'
 import FrequencyDomainChart from '@/components/charts/FrequencyDomainChart'
 import AScanChart from '@/components/charts/AScanChart'
 import BScanChart from '@/components/charts/BScanChart'
+/***** 图表组件引入end ******/
+import services from '@/services/signal'
+
 export default {
   name: 'layout',
   data() {
     return {
       form_generate: {
-        name: '',
-        region: '',
-        date1: '',
-        date2: '',
-        delivery: false,
-        type: [],
-        resource: '',
-        desc: ''
+        signal_type: "1", // 信号类型
+        fs: 3e9, // 采样率
+        fc_start: 1e9, // 起始频率
+        fc_end: 1e9, // 终止频率
+        num_steps: 10, // 步进频率点数
+        use_iq: false, // 是否生成I/Q向信号
+        T: 5e-7
       },
       form_handle: {
 
@@ -110,7 +113,7 @@ export default {
       slider1: 0
     }
   },
-  components:{
+  components: {
     TimeDomainChart,
     FrequencyDomainChart,
     AScanChart,
@@ -118,8 +121,34 @@ export default {
   },
   methods: {
     // 信号生成
-    onGenerateSignal() {
-
+    async onGenerateSignal() {
+      // todo 上传文件
+      const {
+        signal_type,
+        fs,
+        fc_start,
+        fc_end,
+        num_steps,
+        use_iq,
+        T
+      } = this.form_generate
+      const data = {
+        signal_type: Number(signal_type),
+        fs: Number(fs),
+        fc_start: Number(fc_start),
+        fc_end: Number(fc_end),
+        num_steps: Number(num_steps),
+        use_iq: Boolean(use_iq),
+        T: Number(T)
+      }
+      services.generateSignal(data)
+        .then(resp => {
+          console.log(resp)
+        }).catch(err => {
+          console.log(err)
+        }).finally(() => {
+          console.log('finally')
+        })
     },
     // 信号处理
     onHandleSignal() {
