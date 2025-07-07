@@ -36,7 +36,6 @@ module.exports = {
   pluginOptions: {
     electronBuilder: {
       mainProcessFile: './electron/main/index.js',
-      preloadFile: './electron/preload/preload.js',
       preload: './electron/preload/preload.js',
       builderOptions: {
         productName: 'ElectronDemo',

@@ -10,10 +10,11 @@
     "electron:serve": "vue-cli-service electron:serve"
   },
   "dependencies": {
+    "@types/minimatch": "^3.0.5",
     "axios": "^1.10.0",
     "core-js": "^3.8.3",
     "echarts": "^5.6.0",
-    "electron": "^37.2.0",
+    "electron": "22.3.27",
     "element-ui": "^2.15.14",
     "lodash-es": "^4.17.21",
     "path-browserify": "^1.0.1",

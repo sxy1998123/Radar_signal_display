@@ -12,24 +12,26 @@ function createWindow() {
         webPreferences: {
             nodeIntegration: false,          // 必须禁用
             contextIsolation: true,          // 强制启用
-            preload: path.join(__dirname, '/preload.js')
+            preload: path.join(__dirname, '/preload.js'),
+            // devTools: false,                  // 禁用调试工具
         },
         autoHideMenuBar: true
     })
     // 加载页面（区分开发/生产环境）
     if (process.env.WEBPACK_DEV_SERVER_URL) {
         win.loadURL(process.env.WEBPACK_DEV_SERVER_URL)
-        win.webContents.openDevTools()
+        // win.webContents.openDevTools()
     } else {
+        win.webContents.contextIsolation = false
         win.loadFile(path.join(__dirname, '..', 'dist', 'index.html'))
     }
 }
 
-ipcMain.handle('dialog:openFolder', async () => {
+ipcMain.handle('dialog:openFolder', async (event, title = "选择文件夹", buttonLabel = "选择此文件夹") => {
     const { canceled, filePaths } = await dialog.showOpenDialog({
         properties: ['openDirectory', 'createDirectory'],
-        title: '选择信号保存位置',
-        buttonLabel: '选择此文件夹'
+        title: title,
+        buttonLabel: buttonLabel
     })
 
     if (!canceled) {
