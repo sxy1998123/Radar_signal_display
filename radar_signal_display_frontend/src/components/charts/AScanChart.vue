@@ -1,89 +1,65 @@
 <template>
     <div class="a-scan-chart" ref="root">
-        <div class="chart-container" ref="chartContainer"></div>
+        <span class="chart-title">A-scan</span>
+        <el-image :src="src" :style="{ width: '100%', height: '100%' }">
+            <div slot="error" class="image-slot">
+                <i class="el-icon-picture-outline"></i>
+            </div>
+        </el-image>
     </div>
 </template>
 
 <script>
-import * as echarts from "echarts";
-import { debounce } from 'lodash-es';
 export default {
-    name: "AScanChart",
-    created() {
-        window.addEventListener("resize", this.uiResize);
-    },
-    beforeDestroy() {
-        window.removeEventListener("resize", this.uiResize);
-    },
     mounted() {
-        this.uiResize();
-        this.initChart();
+
     },
     data() {
         return {
-            chart: null,
-            chartContainer: null
+            src: ""
         };
     },
     methods: {
-        initChart() {
-            this.chartContainer = this.$refs.chartContainer;
-            this.chart = echarts.init(this.chartContainer);
-            this.chart.setOption(this.getOption());
-        },
-        getOption() {
-            return {
-                title: {
-                    text: "A-Scan"
-                },
-                grid: {
-                    containLabel: true // 防止数值标签超出图表画布范围
-                },
-                xAxis: {
-                    type: "value",
-                    splitLine: {
-                        show: true
-                    }
-                },
-                yAxis: {
-                    type: "value",
-                    splitLine: {
-                        show: true
-                    }
-                },
-                series: [
-                    {
-                        data: [],
-                        type: "line",
-
-                    }
-                ],
-                emphasis: {
-                    focus: 'series', // 高亮显示
-                    scale: true // 鼠标放上去时，放大显示
-                }
-            }
-        },
-        uiResize: debounce(function () {
-            // console.log("resize");
-            const { offsetWidth, offsetHeight } = this.$refs.root;
-            this.chartContainer.style.width = `${offsetWidth - 1}px`;
-            this.chartContainer.style.height = `${offsetHeight - 1}px`;
-            this.chart && this.chart.resize();
-        }, 50)
+        updateImgConifg(url) {
+            this.src = url;
+        }
     }
 }
 </script>
 
 <style lang="less" scoped>
+/deep/ .image-slot {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #999;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    background-color: #fff;
+    width: 100%;
+    height: 100%;
+}
+
 .a-scan-chart {
     width: 100%;
     height: 100%;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 
-    .chart-container {
-        height: 200px;
-        width: 200px;
+    .chart-title {
+        width: 100%;
+        text-align: left;
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .el-icon-picture-outline {
+        font-size: 40px;
     }
 }
 </style>

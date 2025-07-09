@@ -4,6 +4,7 @@ const { contextBridge, ipcRenderer } = require('electron')
 contextBridge.exposeInMainWorld('electronAPI', {
   platform: process.platform,
   openFolderDialog: (title, buttonLabel) => ipcRenderer.invoke('dialog:openFolder', title, buttonLabel),
+  openFileDialog: (title, buttonLabel, filters) => ipcRenderer.invoke('dialog:openFileSelect', title, buttonLabel, filters),
   showDialog: (options) => ipcRenderer.invoke('dialog:show', options)
 })
 

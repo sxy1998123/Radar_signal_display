@@ -331,9 +331,9 @@ def read_process_and_output(folder_path, match_I_dir, match_Q_dir):
 
 
 if __name__ == "__main__":
-    folder_path = "C:/Users/asus/Desktop/20250523/无噪声回波/3"
-    match_I_dir = "C:/Users/asus/Desktop/zuixin/300_1000_0dB_I.npy"
-    match_Q_dir = "C:/Users/asus/Desktop/zuixin/300_1000_0dB_Q.npy"
+    folder_path = "D:\\Project2025\\Radar_signal_display_test\\signal\\新建文件夹\\3"
+    match_I_dir = "D:\\Project2025\\Radar_signal_display_test\\signal\\300_1000_0dB_I.npy"
+    match_Q_dir = "D:\\Project2025\\Radar_signal_display_test\\signal\\300_1000_0dB_Q.npy"
 
     # 获取处理结果
     results = read_process_and_output(folder_path, match_I_dir, match_Q_dir)

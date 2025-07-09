@@ -41,6 +41,22 @@ ipcMain.handle('dialog:openFolder', async (event, title = "选择文件夹", but
     }
 })
 
+ipcMain.handle('dialog:openFileSelect', async (event, title = "选择文件", buttonLabel = "选择此文件", filters = []) => {
+    const { canceled, filePaths } = await dialog.showOpenDialog({
+        properties: ['openFile'],
+        title: title,
+        buttonLabel: buttonLabel,
+        filters: filters
+    })
+
+    if (!canceled) {
+        return filePaths[0]
+    } else {
+        return null
+    }
+})
+
+
 
 // 生命周期管理
 app.whenReady().then(createWindow)

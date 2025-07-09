@@ -30,7 +30,7 @@
             <el-input type="number" v-model="form_generate.T"></el-input>
           </el-form-item>
           <div class="btns">
-            <el-button :loading="sigGeneralbtnLoading" type="primary" @click="onGenerateSignal">生成并保存信号</el-button>
+            <el-button :loading="sigGeneratebtnLoading" type="primary" @click="onGenerateSignal">生成并保存信号</el-button>
           </div>
         </el-form>
         <el-form ref="form" :model="form_handle" label-width="140px" size="medium">
@@ -40,11 +40,17 @@
             <el-button type="text" @click="selectCollectSigFolder">选择文件夹</el-button>
           </el-form-item>
           <el-form-item label="参考信号文件地址">
-            <el-input type="textarea" v-model="form_handle.referenceSigFolder" :readonly="true"></el-input>
-            <el-button type="text" @click="selectReferenceSigFolder">选择文件夹</el-button>
+            <div>
+              <el-input type="textarea" v-model="form_handle.referenceSig_I" :readonly="true"></el-input>
+              <el-button type="text" @click="selectReferenceSigFile_I">选择I相参考信号文件</el-button>
+            </div>
+            <div>
+              <el-input type="textarea" v-model="form_handle.referenceSig_Q" :readonly="true"></el-input>
+              <el-button type="text" @click="selectReferenceSigFile_Q">选择Q相参考信号文件</el-button>
+            </div>
           </el-form-item>
           <el-form-item label="加窗处理">
-            <el-select v-model="form_generate.window_type" placeholder="请选择信号类型">
+            <el-select v-model="form_handle.window_type" placeholder="请选择信号类型">
               <el-option label="加窗" value="1"></el-option>
               <el-option label="汉明" value="2"></el-option>
               <el-option label="汉宁" value="3"></el-option>
@@ -53,7 +59,7 @@
             </el-select>
           </el-form-item>
           <el-form-item label="其他处理" size="medium">
-            <el-select v-model="form_generate.other_process" placeholder="请选择信号类型">
+            <el-select v-model="form_handle.other_process" placeholder="请选择信号类型">
               <el-option label="高斯脉冲" value="1"></el-option>
               <el-option label="步进频连续波" value="2"></el-option>
               <el-option label="步进频脉冲串" value="3"></el-option>
@@ -69,16 +75,16 @@
       <el-card class="card-charts">
         <div class="charts-container">
           <div class="chart-container">
-            <TimeDomainChart></TimeDomainChart>
+            <TimeDomainChart ref="timeDomainChart"></TimeDomainChart>
           </div>
           <div class="chart-container">
-            <FrequencyDomainChart></FrequencyDomainChart>
+            <FrequencyDomainChart ref="frequencyDomainChart"></FrequencyDomainChart>
           </div>
           <div class="chart-container">
-            <AScanChart></AScanChart>
+            <AScanChart ref="aScanChart"></AScanChart>
           </div>
           <div class="chart-container">
-            <BScanChart></BScanChart>
+            <BScanChart ref="bScanChart"></BScanChart>
           </div>
         </div>
       </el-card>
@@ -110,11 +116,12 @@ export default {
       },
       form_handle: {
         collectionSigFolder: '', // 采集信号文件夹
-        referenceSigFolder: '', // 参考信号文件夹
+        referenceSig_I: '', // 参考信号 I相文件
+        referenceSig_Q: '', // 参考信号 Q相文件
         window_type: "1", // 加窗类型
         other_process: "1" // 其他处理类型
       },
-      sigGeneralbtnLoading: false, // 信号生成按钮loading状态
+      sigGeneratebtnLoading: false, // 信号生成按钮loading状态
       sigHandlebtnLoading: false, // 信号处理按钮loading状态
 
       radio1: '频点查看',
@@ -138,9 +145,23 @@ export default {
       this.form_handle.collectionSigFolder = path
     },
     // 选择参考信号文件夹
-    async selectReferenceSigFolder() {
-      const path = await this.showFolderDialog("选择参考信号文件夹", "选择文件夹")
-      this.form_handle.referenceSigFolder = path
+    async selectReferenceSigFile_I() {
+      const path = await window.electronAPI.openFileDialog(
+        "选择I相参考信号文件",
+        "选择文件",
+        [{ name: "信号文件", extensions: ["bin", "npy"] }, { name: "All Files", extensions: ["*"] }]
+      )
+      // console.log(path)
+      this.form_handle.referenceSig_I = path
+    },
+    async selectReferenceSigFile_Q() {
+      const path = await window.electronAPI.openFileDialog(
+        "选择Q相参考信号文件",
+        "选择文件",
+        [{ name: "信号文件", extensions: ["bin", "npy"] }, { name: "All Files", extensions: ["*"] }]
+      )
+      // console.log(path)
+      this.form_handle.referenceSig_Q = path
     },
     // 信号生成
     async onGenerateSignal() {
@@ -152,7 +173,6 @@ export default {
       }
       // todo 表单校验
 
-      this.sigGeneralbtnLoading = true
       // todo 上传参数及保存位置到服务端
       const {
         signal_type,
@@ -173,28 +193,69 @@ export default {
         T: Number(T),
         save_dir
       }
-      services.generateSignal(data)
-        .then(resp => {
-          this.$message.success('信号生成并保存成功')
-          console.log(resp)
-        }).catch(err => {
-          this.$message.error('信号生成失败')
-          console.log(err)
-        }).finally(() => {
-          this.sigHandlebtnLoading = false
-        })
+      try {
+        this.sigGeneratebtnLoading = true
+        services.generateSignal(data)
+          .then(resp => {
+            this.$message.success('信号生成并保存成功')
+            console.log(resp)
+          }).catch(err => {
+            this.$message.error('信号生成失败')
+            console.log(err)
+          }).finally(() => {
+            this.sigGeneratebtnLoading = false
+          })
+      } catch (error) {
+        console.log(error)
+      }
     },
     // 信号处理
     onHandleSignal() {
       const {
         collectionSigFolder,
-        referenceSigFolder,
+        referenceSig_I,
+        referenceSig_Q,
         window_type,
         other_process
       } = this.form_handle
       // todo 表单校验
-      console.log(collectionSigFolder, referenceSigFolder, window_type, other_process);
+      // console.log(collectionSigFolder, referenceSig_I, referenceSig_Q, window_type, other_process);
       // todo 调用接口
+      try {
+        this.sigHandlebtnLoading = true
+        services.handleSignal({
+          collectionSigFolder,
+          referenceSig_I,
+          referenceSig_Q,
+          window_type,
+          other_process
+        })
+          .then(resp => {
+            this.$message.success('信号处理成功')
+            const {
+              data: {
+                num_units,
+                time_domain_img,
+                freq_domain_img,
+                ascan_img,
+                bscan_img
+              }
+            } = resp.data
+            this.$refs.timeDomainChart.updateImgConifg(time_domain_img, num_units)
+            this.$refs.frequencyDomainChart.updateImgConifg(freq_domain_img, num_units)
+            this.$refs.aScanChart.updateImgConifg(ascan_img)
+            this.$refs.bScanChart.updateImgConifg(bscan_img)
+          })
+          .catch(err => {
+            console.log(err)
+            this.$message.error('信号处理失败')
+          })
+          .finally(() => {
+            this.sigHandlebtnLoading = false
+          })
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
 }
@@ -205,6 +266,38 @@ export default {
 // /deep/ .el-card__body {
 //   padding: 0;
 // }
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track-piece {
+  background-color: transparent;
+  -webkit-border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:vertical {
+  height: 6px;
+  background-color: #D0D0D0;
+  -webkit-border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:horizontal {
+  width: 6px;
+  background-color: #D0D0D0;
+  -webkit-border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:vertical:hover,
+::-webkit-scrollbar-thumb:horizontal:hover {
+  background-color: #D0D0D0;
+}
+
+.el-form-item {
+  margin-bottom: 12px;
+}
+
 .el-form {
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -241,6 +334,12 @@ export default {
     .card-form {
       height: 100%;
       box-sizing: border-box;
+      overflow: auto;
+
+      &::scr {
+        background-color: #ccc;
+        border-radius: 4px;
+      }
     }
   }
 

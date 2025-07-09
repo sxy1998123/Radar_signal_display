@@ -1,88 +1,98 @@
 <template>
-  <div class="time-domain-chart" ref="root">
-    <div class="chart-container" ref="chartContainer"></div>
-  </div>
+    <div class="time-domain-chart" ref="root">
+        <span class="chart-title">时域图</span>
+        <div class="img-container">
+            <el-image :src="src" :style="{ width: '100%', height: '100%' }">
+                <div slot="error" class="image-slot">
+                    <i class="el-icon-picture-outline"></i>
+                </div>
+            </el-image>
+        </div>
+        <div class="slider-container">
+            <el-slider @change="handleSliderChange" :min="0" :disabled="num_unit_max === 0" :max="num_unit_max" v-model="num_unit" show-input></el-slider>
+        </div>
+    </div>
 </template>
 
 <script>
-import * as echarts from "echarts";
-import { debounce } from 'lodash-es';
 export default {
-    name: "TimeDomainChart",
-    created(){
-        window.addEventListener("resize", this.uiResize);
-    },
-    beforeDestroy() {
-        window.removeEventListener("resize", this.uiResize);
-    },
     mounted() {
-        this.uiResize();
-        this.initChart();
+
     },
     data() {
         return {
-            chart: null,
-            chartContainer: null
+            src_init: "",
+            src: "",
+            num_unit: 0,
+            num_unit_max: 0
         };
     },
     methods: {
-        initChart() {
-            this.chartContainer = this.$refs.chartContainer;
-            this.chart = echarts.init(this.chartContainer);
-            this.chart.setOption(this.getOption());
+        updateImg() {
+            this.src = `${this.src_init}?num_unit=${this.num_unit}`;
         },
-        getOption() {
-            return {
-                title: {
-                    text: "时域图"
-                },
-                grid:{
-                    containLabel: true // 防止数值标签超出图表画布范围
-                },
-                xAxis: {
-                    type: "value",
-                    splitLine: {
-                        show: true
-                    }
-                },
-                yAxis: {
-                    type: "value",
-                    splitLine: {
-                        show: true
-                    }
-                },
-                series: [
-                    {
-                        data: [],
-                        type: "line",
-
-                    }
-                ],
-                emphasis: {
-                    focus: 'series', // 高亮显示
-                    scale: true // 鼠标放上去时，放大显示
-                }
+        updateImgConifg(url, num_units) {
+            this.src_init = url;
+            this.num_unit_max = num_units - 1; // 信号单元数 作为下标时需要减一
+            if (this.num_unit >= this.num_unit_max) {
+                this.num_unit = this.num_unit_max
             }
+            this.updateImg()
         },
-        uiResize: debounce(function() {
-            // console.log("resize");
-            const {offsetWidth,offsetHeight} = this.$refs.root;
-            this.chartContainer.style.width = `${offsetWidth - 1}px`;
-            this.chartContainer.style.height = `${offsetHeight - 1}px`;
-            this.chart && this.chart.resize();
-        }, 50,{immediate: true})
-   }
+        handleSliderChange(value) {
+            if (isNaN(value)) {
+                console.log("slider value is not a number")
+            } else {
+                this.updateImg()
+            }
+        }
+    }
 }
 </script>
 
 <style lang="less" scoped>
+/deep/ .image-slot {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #999;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    background-color: #fff;
+    width: 100%;
+    height: 100%;
+}
+
 .time-domain-chart {
     width: 100%;
     height: 100%;
     box-sizing: border-box;
-    .chart-container{
-        height: 200px;
-        width: 200px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .chart-title {
+        width: 100%;
+        text-align: left;
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .img-container {
+        flex: 1;
+        width: 100%;
+    }
+
+    .slider-container {
+        width: 100%;
+    }
+
+    .el-icon-picture-outline {
+        font-size: 40px;
     }
 }
 </style>
