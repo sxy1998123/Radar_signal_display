@@ -1,19 +1,31 @@
-const { app, BrowserWindow, ipcMain, dialog } = require('electron')
+const { app, BrowserWindow, ipcMain, dialog, protocol } = require('electron')
 const path = require('path')
 
 // 禁用旧版安全警告（开发环境）
 process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = 'true'
 
+
+
+
 // 窗口创建函数（适配 Electron 21）
 function createWindow() {
+    // 注册文件协议处理函数
+    protocol.registerFileProtocol('app', (request, callback) => {
+        const url = request.url.substr(6); // 去掉 'app://'
+        const filePath = path.join(__dirname, url);
+        callback({ path: filePath });
+    });
+
+    // 创建浏览器窗口
     const win = new BrowserWindow({
         width: 1920,
         height: 1080,
         webPreferences: {
-            nodeIntegration: false,          // 必须禁用
+            nodeIntegration: true,
             contextIsolation: true,          // 强制启用
             preload: path.join(__dirname, '/preload.js'),
             // devTools: false,                  // 禁用调试工具
+            webSecurity: false,               // 禁用 web 安全限制
         },
         autoHideMenuBar: true
     })
@@ -23,7 +35,7 @@ function createWindow() {
         // win.webContents.openDevTools()
     } else {
         win.webContents.contextIsolation = false
-        win.loadFile(path.join(__dirname, '..', 'dist', 'index.html'))
+        win.loadFile(path.join(__dirname, 'index.html'))
     }
 }
 

@@ -1,7 +1,10 @@
 {
+  "author": "Radar Signal Display Team",
   "name": "radar_signal_display_frontend",
+  "description": "Radar signal display frontend",
   "version": "0.1.0",
   "private": true,
+  "main": "background.js",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
@@ -13,8 +16,6 @@
     "@types/minimatch": "^3.0.5",
     "axios": "^1.10.0",
     "core-js": "^3.8.3",
-    "echarts": "^5.6.0",
-    "electron": "22.3.27",
     "element-ui": "^2.15.14",
     "lodash-es": "^4.17.21",
     "path-browserify": "^1.0.1",
@@ -27,6 +28,7 @@
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-plugin-eslint": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
+    "electron": "22.3.27",
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^8.0.3",
     "less": "3.5.0",

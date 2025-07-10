@@ -6,8 +6,10 @@ function resolve(dir) {
 module.exports = {
   runtimeCompiler: true,
   productionSourceMap: false,
-  publicPath: '/',
-  outputDir: 'frontend',
+  publicPath: process.env.NODE_ENV === 'production'
+    ? './' // 生产环境使用相对路径
+    : '/', // 开发环境保持默认
+  outputDir: 'dist',
   lintOnSave: true,
   chainWebpack: (config) => {
     config.plugin('html').tap(args => {
@@ -35,34 +37,17 @@ module.exports = {
   },
   pluginOptions: {
     electronBuilder: {
-      mainProcessFile: './electron/main/index.js',
-      preload: './electron/preload/preload.js',
+      preload: 'src/preload.js',
       builderOptions: {
-        productName: 'ElectronDemo',
-        appId: 'com.example.electrondemo',
-        win: {
-          icon: 'electron/resources/icon.ico',
-          target: 'nsis'
-        },
-        files: [
-          "**/*",
-          "dist/**/*",
-          {
-            from: "electron/resources",
-            to: "resources"  // 资源文件打包
-          }
-        ],
-        // 关键：适配打包规则
-        asar: true,
-        nodeGypRebuild: false,
-        buildDependenciesFromSource: false,
+        productName: 'RadarSignalDisplay',
+        appId: 'com.example.radar-signal-display',
+        asar: false,
         extraResources: [
           {
-            from: "dist",          // Vue 构建输出的目录
-            to: "dist",            // 目标路径（位于 resources 下）
-            filter: ["**/*"]
+            from: 'src/preload.js', // 确保 preload 文件被复制到资源目录
+            to: 'preload.js'
           }
-        ]
+        ],
       }
     }
   },
