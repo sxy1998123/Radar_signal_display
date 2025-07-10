@@ -10,6 +10,9 @@ Vue.prototype.$axios = axios;
 
 Vue.use(ElementUI);
 
+// electron
+const backendUrl = window.electronAPI && window.electronAPI.backendUrl ? window.electronAPI.backendUrl : ''
+Vue.prototype.$backendUrl = backendUrl;
 Vue.config.productionTip = false
 new Vue({
   render: h => h(App),

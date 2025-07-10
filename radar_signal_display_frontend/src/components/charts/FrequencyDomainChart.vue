@@ -26,7 +26,13 @@ export default {
     },
     methods: {
         updateImg() {
-            this.src = `${this.src_init}?num_unit=${this.num_unit}`;
+            const src = `${this.$backendUrl}${this.src_init}?num_unit=${this.num_unit}`;
+            if (this.src !== src)
+                this.src = src;
+            else {
+                // 强制刷新图片
+                this.src = `${src}&t=${Date.now()}`
+            }
         },
         updateImgConifg(url, num_units) {
             this.src_init = url;

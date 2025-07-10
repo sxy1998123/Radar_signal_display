@@ -189,29 +189,29 @@ def save_signal_with_dir(signal: np.ndarray, signal_type: str = "I", save_dir: s
 
 
 # 使用示例
-if __name__ == "__main__":
-    # 1. 生成信号
-    i_sig, q_sig = generate_step_freq_signal(
-        fs=3e9,         # 采样率 (Hz)
-        fc_start=300e6, # 起始频率 (Hz)
-        fc_end=1000e6,  # 结束频率 (Hz)
-        T=50e-8,        # 单个频率持续时间 (s)
-        use_iq=True,    # 是否生成IQ信号,true为同时生成I相和Q相信号，Flase为只生成I相信号
-        num_steps=101   # 步进频率点数
-    )
+# if __name__ == "__main__":
+#     # 1. 生成信号
+#     i_sig, q_sig = generate_step_freq_signal(
+#         fs=3e9,         # 采样率 (Hz)
+#         fc_start=300e6, # 起始频率 (Hz)
+#         fc_end=1000e6,  # 结束频率 (Hz)
+#         T=50e-8,        # 单个频率持续时间 (s)
+#         use_iq=True,    # 是否生成IQ信号,true为同时生成I相和Q相信号，Flase为只生成I相信号
+#         num_steps=101   # 步进频率点数
+#     )
     
-    # 2. 绘制信号
-    plot_time_domain(i_sig, "I_")
-    plot_frequency_domain(i_sig, fs=3e9, signal_type="I_")
+#     # 2. 绘制信号
+#     plot_time_domain(i_sig, "I_")
+#     plot_frequency_domain(i_sig, fs=3e9, signal_type="I_")
     
-    if q_sig is not None:
-        plot_time_domain(q_sig, "Q_")
-        plot_frequency_domain(q_sig, fs=3e9, signal_type="Q_")
+#     if q_sig is not None:
+#         plot_time_domain(q_sig, "Q_")
+#         plot_frequency_domain(q_sig, fs=3e9, signal_type="Q_")
     
-    # 3. 保存信号（带自定义命名）
-    print("\n保存I相信号:")
-    saved_i_file = save_signal_with_prompt(i_sig, "I")
+#     # 3. 保存信号（带自定义命名）
+#     print("\n保存I相信号:")
+#     saved_i_file = save_signal_with_prompt(i_sig, "I")
     
-    if q_sig is not None:
-        print("\n保存Q相信号:")
-        saved_q_file = save_signal_with_prompt(q_sig, "Q")
+#     if q_sig is not None:
+#         print("\n保存Q相信号:")
+#         saved_q_file = save_signal_with_prompt(q_sig, "Q")

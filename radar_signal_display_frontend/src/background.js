@@ -4,9 +4,6 @@ const path = require('path')
 // 禁用旧版安全警告（开发环境）
 process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = 'true'
 
-
-
-
 // 窗口创建函数（适配 Electron 21）
 function createWindow() {
     // 注册文件协议处理函数

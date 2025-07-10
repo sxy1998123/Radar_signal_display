@@ -21,7 +21,13 @@ export default {
     },
     methods: {
         updateImgConifg(url) {
-            this.src = url;
+            const src = `${this.$backendUrl}${url}`;
+            if (src !== this.src) {
+                this.src = src;
+            } else {
+                // 强制刷新图片
+                this.src = `${this.src}?t=${Date.now()}`;
+            }
         }
     }
 }

@@ -4,6 +4,7 @@ frontend
 dist
 dist_electron
 plt_img
+build
 # local env files
 .env.local
 .env.*.local
