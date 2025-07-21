@@ -11,13 +11,13 @@
               <el-option label="步进频脉冲串" value="3"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="采样率(Hz)">
+          <el-form-item label="采样率(MHz)">
             <el-input type="number" v-model="form_generate.fs"></el-input>
           </el-form-item>
-          <el-form-item label="起始频率(Hz)">
+          <el-form-item label="起始频率(MHz)">
             <el-input type="number" v-model="form_generate.fc_start"></el-input>
           </el-form-item>
-          <el-form-item label="终止频率(Hz)">
+          <el-form-item label="终止频率(MHz)">
             <el-input type="number" v-model="form_generate.fc_end"></el-input>
           </el-form-item>
           <el-form-item label="步进频率点数">
@@ -26,7 +26,7 @@
           <el-form-item label="同时生成I/Q信号">
             <el-switch v-model="form_generate.use_iq"></el-switch>
           </el-form-item>
-          <el-form-item label="单个频点持续时间(s)">
+          <el-form-item label="单个频点持续时间(ns)">
             <el-input type="number" v-model="form_generate.T"></el-input>
           </el-form-item>
           <div class="btns">
@@ -107,12 +107,12 @@ export default {
     return {
       form_generate: {
         signal_type: "1", // 信号类型
-        fs: 3e9, // 采样率
-        fc_start: 1e9, // 起始频率
-        fc_end: 1e9, // 终止频率
-        num_steps: 10, // 步进频率点数
+        fs: 3000, // 采样率 (MHz)
+        fc_start: 300, // 起始频率 (MHz)
+        fc_end: 1000, // 结束频率 (MHz)
+        num_steps: 101, // 步进频率点数
         use_iq: false, // 是否生成I/Q向信号
-        T: 5e-7
+        T: 500 // 单个频率持续时间 (ns)
       },
       form_handle: {
         collectionSigFolder: '', // 采集信号文件夹

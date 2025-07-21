@@ -15,7 +15,7 @@ CORS(app) # 开发环境下允许跨域请求
 
 @app.route('/')
 def index():
-    return send_from_directory(app.static_folder, 'index.html')
+    return "Hello World!"
 
 app.register_blueprint(signal_bp, url_prefix="/api/signal")
 Swagger(app)
