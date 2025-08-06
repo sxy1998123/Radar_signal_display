@@ -29,3 +29,5 @@ node_modules
 *.pyc
 
 
+radar_signal_display_backend/app.spec
+radar_signal_display_backend/sdk/log

@@ -1,0 +1,263 @@
+[
+  {
+    "BOARD_TYPE": 0,
+    "DRIVER_SET_DELAY_MS": 3000,
+    "ELOG_SWITCH": 1,
+    "GigabitNet_ADC_DMA0_ADDRESS": [
+      2147483648,
+      0,
+      2684354560,
+      0
+    ],
+    "GigabitNet_ADC_DMA1_ADDRESS": [
+      2147483648,
+      1,
+      2684354560,
+      1
+    ],
+    "GigabitNet_BYTE_ALIGNMENT": 64,
+    "GigabitNet_CLOCK_SET_DELAY_MS": 3000,
+    "GigabitNet_DAC_DMA0_ADDRESS": [
+      2147483648,
+      0,
+      2684354560,
+      0
+    ],
+    "GigabitNet_DAC_DMA1_ADDRESS": [
+      2147483648,
+      1,
+      2684354560,
+      1
+    ],
+    "GigabitNet_DATA_MOVE_ADDRESS": 1,
+    "GigabitNet_DDS_BIT_WIDTH": 32,
+    "GigabitNet_DDS_COUNT": 1,
+    "GigabitNet_DDS_INPUT_CLOCKMHZ": 125,
+    "GigabitNet_DMA_COUNT_ADC": 1,
+    "GigabitNet_DMA_COUNT_DAC": 1,
+    "GigabitNet_REG_BASE_ADDRESS": 1073741824,
+    "PCIe_ADC_DMA0_ADDRESS": [
+      0,
+      0,
+      2147483648,
+      0
+    ],
+    "PCIe_ADC_DMA1_ADDRESS": [
+      0,
+      1,
+      2147483648,
+      1
+    ],
+    "PCIe_BYTE_ALIGNMENT": 64,
+    "PCIe_CLOCK_SET_DELAY_MS": 3000,
+    "PCIe_DAC_DMA0_ADDRESS": [
+      0,
+      0,
+      2147483648,
+      0
+    ],
+    "PCIe_DAC_DMA1_ADDRESS": [
+      0,
+      1,
+      2147483648,
+      1
+    ],
+    "PCIe_DAC_DMA2_ADDRESS": [
+      0,
+      1,
+      2147483648,
+      1
+    ],
+    "PCIe_DAC_DMA3_ADDRESS": [
+      0,
+      1,
+      2147483648,
+      1
+    ],
+    "PCIe_DAC_DMA4_ADDRESS": [
+      0,
+      1,
+      2147483648,
+      1
+    ],
+    "PCIe_DAC_DMA5_ADDRESS": [
+      0,
+      1,
+      2147483648,
+      1
+    ],
+    "PCIe_DAC_DMA6_ADDRESS": [
+      0,
+      1,
+      2147483648,
+      1
+    ],
+    "PCIe_DAC_DMA7_ADDRESS": [
+      0,
+      1,
+      2147483648,
+      1
+    ],
+    "PCIe_DAC_DMA8_ADDRESS": [
+      0,
+      1,
+      2147483648,
+      1
+    ],
+    "PCIe_DATA_MOVE_ADDRESS": 0,
+    "PCIe_DDS_BIT_WIDTH": 32,
+    "PCIe_DDS_COUNT": 1,
+    "PCIe_DDS_INPUT_CLOCKMHZ": 245.76,
+    "PCIe_DMA_COUNT_ADC": 2,
+    "PCIe_DMA_COUNT_DAC": 1,
+    "PCIe_FAKE_INTR_TIME_S": 0,
+    "PCIe_INIT_IBLOCK_COUNT": 100,
+    "PCIe_INIT_IBlCOK_SIZE": 64,
+    "10GigabitNet_ADC_DMA0_ADDRESS": [
+      0,
+      0,
+      2147483648,
+      0
+    ],
+    "10GigabitNet_ADC_DMA1_ADDRESS": [
+      214748365,
+      0,
+      2147483648,
+      0
+    ],
+    "10GigabitNet_ADC_DMA1_0_ADDRESS": [
+      214748365,
+      0,
+      2147483648,
+      0
+    ],
+    "10GigabitNet_ADC_DMA1_1_ADDRESS": [
+      322122548,
+      0,
+      2147483648,
+      0
+    ],
+    "10GigabitNet_ADC_DMA1_2_ADDRESS": [
+      429496730,
+      0,
+      2147483648,
+      0
+    ],
+    "10GigabitNet_ADC_DMA2_ADDRESS": [
+      536870913,
+      0,
+      2147483648,
+      0
+    ],
+    "10GigabitNet_ADC_DMA3_ADDRESS": [
+      751619276,
+      0,
+      2147483648,
+      0
+    ],
+    "10GigabitNet_BYTE_ALIGNMENT": 64,
+    "10GigabitNet_CLOCK_SET_DELAY_MS": 1500,
+    "10GigabitNet_DAC_DMA0_ADDRESS": [
+      0,
+      0,
+      2147483648,
+      0
+    ],
+    "10GigabitNet_DAC_DMA1_ADDRESS": [
+      0,
+      1,
+      2147483648,
+      0
+    ],
+    "10GigabitNet_DATA_MOVE_ADDRESS": 1,
+    "10GigabitNet_DDS_BIT_WIDTH": 32,
+    "10GigabitNet_DDS_COUNT": 1,
+    "10GigabitNet_DDS_INPUT_CLOCKMHZ": 245.76,
+    "10GigabitNet_DMA_COUNT_ADC": 1,
+    "10GigabitNet_DMA_COUNT_DAC": 1,
+    "10GigabitNet_REG_BASE_ADDRESS": 1073741824
+  },
+  {
+    "Status_value_Clock_EXT": 7,
+    "Status_value_Clock_REF": 7,
+    "function": "Clock",
+    "is_EXT_Clock": true,
+    "is_REF_Clock": true
+  },
+    {
+        "CoupleType": "DC",
+        "SamplingRate_Double": 5000,
+        "SamplingRate_Single": 10000,
+        "Single_Channel_trigger_id": 2,
+        "function": "Channel",
+        "is_AD_Single_Double_Switch": false,
+        "is_DA_Single_Double_Switch": false
+    },
+  {
+    "function": "AcquisitionMode",
+    "is_FilePlay": false,
+    "is_FilePlayInter": false,
+    "is_FiniteMulti": true,
+    "is_FiniteSingle": true,
+    "is_InfiniteMulti": true,
+    "is_InfiniteSingle": false,
+    "is_LoopPlayCollection": false,
+    "is_StreamPlay": false
+  },
+  {
+    "Delay_trigger_uint1": 8,
+    "Delay_trigger_uint2": 8,
+    "Pre_trigger_uint1": 8,
+    "Pre_trigger_uint2": 8,
+    "function": "Trigger",
+    "is_ExtTrigger_BiasVoltage": false
+  },
+    {
+        "DAmode": "DMA",
+        "DMAcount": 2,
+        "PingMaxSize": 4000,
+        "function": "DMA"
+    },
+  {
+    "function": "UI",
+    "is9009": false,
+    "is_LRU": false,
+    "is_1144VG": false,
+    "is_1140": false,
+    "is_FanControl": false,
+    "is_FileConversion": false,
+    "is_IQ": false,
+    "is_Lboduan": false,
+    "is_OffsetAdjust": false,
+    "is_Waterfall_UI": false,
+    "is_jixianjiaozhun": false,
+    "is_mibo": false,
+    "is_time_UI": true
+  },
+  {
+    "Frequency_Delay_MS": 20000,
+    "RecBandwidth_Delay_MS": 0,
+    "RecDataType_Delay_MS": 0,
+    "RecGain_Delay_MS": 3000,
+    "RefClock_Delay_MS": 1000,
+    "RepGain_Delay_MS": 3000,
+    "function": "RF",
+    "is_Frequency": true,
+    "is_RecBandwidth": true,
+    "is_RecDataType": true,
+    "is_RecGain": true,
+    "is_RefClock": true,
+    "is_RepGain": true
+  },
+  {
+    "frame_header_bytes_number": 64,
+    "is_EEProm": false,
+    "is_net": false
+  },
+  {
+    "CardIndx": 0,
+    "DDR_Memory": 4096,
+    "DMA_parameter_sleep": 0,
+    "dmatotalbytes": 1000
+  }
+]

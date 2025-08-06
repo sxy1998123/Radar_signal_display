@@ -1,0 +1,15 @@
+[
+  {
+    "QTBoard0": 1,
+    "QTBoard1": 0,
+    "QTBoard2": -1,
+    "QTBoard3": -1,
+    "QTBoard4": -1,
+    "QTBoard5": -1,
+    "QTBoard6": -1,
+    "QTBoard7": -1,
+    "GigabitNet_REG_BASE_ADDRESS": 2684354560,
+    "10GigabitNet_REG_BASE_ADDRESS": 0,
+    "CardIndx": 0
+  }
+]

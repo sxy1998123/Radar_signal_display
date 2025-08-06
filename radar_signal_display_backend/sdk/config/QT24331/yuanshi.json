@@ -1,0 +1,389 @@
+[
+  {
+    "DRIVER_SET_DELAY_MS": 3000,
+    "ELOG_SWITCH": 1,
+    "GigabitNet_ADC_DMA0_ADDRESS": [
+      0,
+      5,
+      1073741824,
+      5
+    ],
+    "GigabitNet_ADC_DMA1_ADDRESS": [
+      0,
+      5,
+      1073741824,
+      5
+    ],
+    "GigabitNet_BYTE_ALIGNMENT": 64,
+    "GigabitNet_CLOCK_SET_DELAY_MS": 3000,
+    "GigabitNet_DAC_DMA0_ADDRESS": [
+      2147483648,
+      5,
+      2684354560,
+      0
+    ],
+    "GigabitNet_DAC_DMA1_ADDRESS": [
+      2147483648,
+      5,
+      2684354560,
+      0
+    ],
+    "GigabitNet_DATA_MOVE_ADDRESS": 1,
+    "GigabitNet_DDS_BIT_WIDTH": 32,
+    "GigabitNet_DDS_COUNT": 8,
+    "GigabitNet_DDS_INPUT_CLOCKMHZ": 375,
+    "GigabitNet_DMA_COUNT_ADC": 1,
+    "GigabitNet_DMA_COUNT_DAC": 1,
+    "PCIe_ADC_DMA0_ADDRESS": [
+      0,
+      0,
+      2147483648,
+      0
+    ],
+    "PCIe_ADC_DMA1_ADDRESS": [
+      0,
+      1,
+      2147483648,
+      1
+    ],
+    "PCIe_BYTE_ALIGNMENT": 64,
+    "PCIe_CLOCK_SET_DELAY_MS": 1500,
+    "PCIe_DAC_DMA0_ADDRESS": [
+      0,
+      0,
+      2147483648,
+      0
+    ],
+    "PCIe_DAC_DMA1_ADDRESS": [
+      0,
+      1,
+      2147483648,
+      1
+    ],
+    "PCIe_DAC_DMA2_ADDRESS": [
+      0,
+      1,
+      2147483648,
+      1
+    ],
+    "PCIe_DAC_DMA3_ADDRESS": [
+      0,
+      1,
+      2147483648,
+      1
+    ],
+    "PCIe_DAC_DMA4_ADDRESS": [
+      0,
+      1,
+      2147483648,
+      1
+    ],
+    "PCIe_DAC_DMA5_ADDRESS": [
+      0,
+      1,
+      2147483648,
+      1
+    ],
+    "PCIe_DAC_DMA6_ADDRESS": [
+      0,
+      1,
+      2147483648,
+      1
+    ],
+    "PCIe_DAC_DMA7_ADDRESS": [
+      0,
+      1,
+      2147483648,
+      1
+    ],
+    "PCIe_DAC_DMA8_ADDRESS": [
+      0,
+      1,
+      2147483648,
+      1
+    ],
+    "PCIe_DATA_MOVE_ADDRESS": 0,
+    "PCIe_DDS_BIT_WIDTH": 32,
+    "PCIe_DDS_COUNT": 1,
+    "PCIe_DDS_INPUT_CLOCKMHZ": 245.76,
+    "PCIe_DMA_COUNT_ADC": 1,
+    "PCIe_DMA_COUNT_DAC": 1,
+    "PCIe_FAKE_INTR_TIME_S": 0.02,
+    "PCIe_INIT_IBLOCK_COUNT": 100,
+    "PCIe_INIT_IBlCOK_SIZE": 64,
+    "10GigabitNet_ADC_DMA0_ADDRESS": [
+      0,
+      0,
+      2147483648,
+      0
+    ],
+    "10GigabitNet_ADC_DMA1_ADDRESS": [
+      214748365,
+      0,
+      2147483648,
+      0
+    ],
+    "10GigabitNet_ADC_DMA1_0_ADDRESS": [
+      214748365,
+      0,
+      2147483648,
+      0
+    ],
+    "10GigabitNet_ADC_DMA1_1_ADDRESS": [
+      322122548,
+      0,
+      2147483648,
+      0
+    ],
+    "10GigabitNet_ADC_DMA1_2_ADDRESS": [
+      429496730,
+      0,
+      2147483648,
+      0
+    ],
+    "10GigabitNet_ADC_DMA2_ADDRESS": [
+      536870913,
+      0,
+      2147483648,
+      0
+    ],
+    "10GigabitNet_ADC_DMA3_ADDRESS": [
+      751619276,
+      0,
+      2147483648,
+      0
+    ],
+    "10GigabitNet_BYTE_ALIGNMENT": 64,
+    "10GigabitNet_CLOCK_SET_DELAY_MS": 1500,
+    "10GigabitNet_DAC_DMA0_ADDRESS": [
+      0,
+      0,
+      2147483648,
+      0
+    ],
+    "10GigabitNet_DAC_DMA1_ADDRESS": [
+      0,
+      1,
+      2147483648,
+      0
+    ],
+    "10GigabitNet_DAC_DMA2_ADDRESS": [
+      0,
+      1,
+      2147483648,
+      0
+    ],
+    "10GigabitNet_DAC_DMA3_ADDRESS": [
+      0,
+      1,
+      2147483648,
+      0
+    ],
+    "10GigabitNet_DAC_DMA4_ADDRESS": [
+      0,
+      1,
+      2147483648,
+      0
+    ],
+    "10GigabitNet_DAC_DMA5_ADDRESS": [
+      0,
+      1,
+      2147483648,
+      0
+    ],
+    "10GigabitNet_DAC_DMA6_ADDRESS": [
+      0,
+      1,
+      2147483648,
+      0
+    ],
+    "10GigabitNet_DAC_DMA7_ADDRESS": [
+      0,
+      1,
+      2147483648,
+      0
+    ],
+    "10GigabitNet_DATA_MOVE_ADDRESS": 1,
+    "10GigabitNet_DDS_BIT_WIDTH": 32,
+    "10GigabitNet_DDS_COUNT": 1,
+    "10GigabitNet_DDS_INPUT_CLOCKMHZ": 245.76,
+    "10GigabitNet_DMA_COUNT_ADC": 1,
+    "10GigabitNet_DMA_COUNT_DAC": 1
+  },
+  {
+    "Status_value_Clock_EXT": 15,
+    "Status_value_Clock_REF": 15,
+    "function": "Clock",
+    "is_EXT_Clock": true,
+    "is_REF_Clock": true
+  },
+    {
+        "CoupleType": "AC",
+        "SamplingRate_Double": 5000,
+        "SamplingRate_Single": 10000,
+        "Single_Channel_trigger_id": 2,
+        "function": "Channel",
+        "is_AD_Single_Double_Switch": false,
+        "is_DA_Single_Double_Switch": false
+    },
+  {
+    "function": "AcquisitionMode",
+    "is_FilePlay": false,
+    "is_FilePlayInter": false,
+    "is_FiniteMulti": false,
+    "is_FiniteSingle": false,
+    "is_InfiniteMulti": false,
+    "is_InfiniteSingle": false,
+    "is_LoopPlayCollection": true,
+    "is_StreamPlay": false
+  },
+    {
+        "Delay_trigger_uint1": 8,
+        "Delay_trigger_uint2": 8,
+        "Pre_trigger_uint1": 8,
+        "Pre_trigger_uint2": 8,
+        "function": "Trigger",
+        "is_ExtTrigger_BiasVoltage": false
+    },
+    {
+        "DAmode": "DMA",
+        "DMAcount": 1,
+        "PingMaxSize": 70,
+        "function": "DMA"
+    },
+  {
+    "function": "UI",
+    "is9009": false,
+    "is_LRU": false,
+    "is_1144VG": false,
+    "is_1140": false,
+    "is_FanControl": false,
+    "is_FileConversion": false,
+    "is_IQ": false,
+    "is_Lboduan": false,
+    "is_OffsetAdjust": false,
+    "is_Waterfall_UI": false,
+    "is_jixianjiaozhun": false,
+    "is_mibo": false,
+    "is_time_UI": true,
+    "is_GKDL": false,
+    "is_RZSW": false,
+    "is_MYQUEUEPUSHPOP": true,
+    "is_QQNY": false,
+    "is_DYKJ": false,
+    "is_HGD": true
+  },
+  {
+    "Frequency_Delay_MS": 20000,
+    "RecBandwidth_Delay_MS": 0,
+    "RecDataType_Delay_MS": 0,
+    "RecGain_Delay_MS": 3000,
+    "RefClock_Delay_MS": 1000,
+    "RepGain_Delay_MS": 3000,
+    "function": "RF",
+    "is_Frequency": false,
+    "is_RecBandwidth": false,
+    "is_RecDataType": false,
+    "is_RecGain": false,
+    "is_RefClock": false,
+    "is_RepGain": false
+  },
+  {
+    "frame_header_bytes_number": 64,
+    "is_EEProm": false,
+    "is_net": true
+  },
+  {
+    "DDR_Memory": 2048,
+    "DMA_parameter_sleep": 0,
+    "dmatotalbytes": 1000
+  },
+  {
+      "factor1": 0.00172393120022247,
+      "factor2": 0.00172393120022247,
+      "factor3": 0.00172393120022247,
+      "factor4": 0.0017230368024965,
+      "factor5": 0.0299072,
+      "factor6": 0.0299072,
+      "factor7": 0.0299072,
+      "factor8": 0.0299072,
+      "id1": "input1"
+    },
+    {
+      "factor12": 0.00397649369544026,
+      "factor22": 0.00391772181140466,
+      "factor32": 0.00390376631627457,
+      "factor42": 0.00391384477422914,
+      "factor52": 0.0299072,
+      "factor62": 0.0299072,
+      "factor72": 0.0299072,
+      "factor82": 0.0299072,
+      "id2": "input2"
+    },
+    {
+      "factor13": 0.0082727172049978,
+      "factor23": 0.0081543996431642,
+      "factor33": 0.0081970053950168,
+      "factor43": 0.0078183234674941,
+      "factor53": 0.0299072,
+      "factor63": 0.0299072,
+      "factor73": 0.0299072,
+      "factor83": 0.0299072,
+      "id3": "input3"
+    },
+    {
+      "factor14": 0.0171914919326617,
+      "factor24": 0.0171242908817171,
+      "factor34": 0.0171991376393184,
+      "factor44": 0.0168319161466814,
+      "factor54": 0.0299072,
+      "factor64": 0.0299072,
+      "factor74": 0.0299072,
+      "factor84": 0.0299072,
+      "id4": "input4"
+    },
+    {
+      "factor15": 0.0338655622150346,
+      "factor25": 0.0338338335297355,
+      "factor35": 0.0338561750562074,
+      "factor45": 0.0340424650880232,
+      "factor55": 0.0299072,
+      "factor65": 0.0299072,
+      "factor75": 0.0299072,
+      "factor85": 0.0299072,
+      "id5": "input5"
+    },
+    {
+      "factor16": 0.086137293595249,
+      "factor26": 0.086716062289913,
+      "factor36": 0.086087597150258,
+      "factor46": 0.086002159850698,
+      "factor56": 0.0299072,
+      "factor66": 0.0299072,
+      "factor76": 0.0299072,
+      "factor86": 0.0299072,
+      "id6": "input6"
+    },
+    {
+      "factor17": 7,
+      "factor27": 0.0299072,
+      "factor37": 0.0299072,
+      "factor47": 0.0299072,
+      "factor57": 0.0299072,
+      "factor67": 0.0299072,
+      "factor77": 0.0299072,
+      "factor87": 0.0299072,
+      "id7": "input7"
+    },
+    {
+      "factor18": 8,
+      "factor28": 0.0299072,
+      "factor38": 0.0299072,
+      "factor48": 0.0299072,
+      "factor58": 0.0299072,
+      "factor68": 0.0299072,
+      "factor78": 0.22,
+      "factor88": 0.99,
+      "id8": "input8"
+    }
+]
