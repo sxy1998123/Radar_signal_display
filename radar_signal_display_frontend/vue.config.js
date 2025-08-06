@@ -44,8 +44,12 @@ module.exports = {
         asar: false,
         extraResources: [
           {
-            from: 'src/preload.js', // 确保 preload 文件被复制到资源目录
-            to: 'preload.js'
+            from: 'src/preload.js', // 渲染进程预加载文件
+            to: 'app/preload.js'
+          },
+          {
+            from: 'src/background.js', // 入口文件
+            to: 'app/index.js'
           }
         ],
       }
