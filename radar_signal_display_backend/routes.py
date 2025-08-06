@@ -1,34 +1,36 @@
 from flask import Blueprint, request, jsonify, send_file, current_app
 from datetime import datetime
+# 信号生成及处理
 from utils.func_SFCW_I_Q import generate_step_freq_signal, save_signal_with_dir
 from utils.func_Handle import read_process_and_output
+# 信号采集sdk
+from sdk.myMain import start_collect, end_collect
 import logging
 import os
+import threading
 signal_bp = Blueprint('signal', __name__)
 
-# logging.basicConfig(
-#     level=logging.INFO,  # 修改日志级别输出所有日志
-#     format='%(asctime)s %(name)s [%(pathname)s:%(lineno)d] %(levelname)s %(message)s',
-#     datefmt='%Y-%m-%d %H:%M:%S',  # 日期时间格式
-# )
+logger = logging.getLogger()
 
 # 信号处理结果
 base_dir = os.path.dirname(os.path.abspath(__file__))
 img_save_path = os.path.join(base_dir, "plt_img")
 num_units = None
-logging.info(f"img_save_path: {img_save_path}")
+logger.info(f"img_save_path: {img_save_path}")
 
 
 @signal_bp.route('/index')
 def index():
-    logging.info("Hello")
+    logger.info("Hello")
     return "Hello, World!"
 
 # 显式处理相同URL的其他方法
 
+# 信号生成接口 start
+
 
 @signal_bp.route('/generate', methods=['GET', 'PUT', 'DELETE'])
-def handle_invalid_methods():
+def handle_invalid_generate():
     return jsonify({"error": "Method not allowed"}), 405
 
 
@@ -123,10 +125,12 @@ def generate_signal():
         return jsonify(response), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+# 信号生成接口 end
+# 信号处理接口 start
 
 
 @signal_bp.route('/handle', methods=['GET', 'PUT', 'DELETE'])
-def handle_invalid_methods_2():
+def handle_invalid_handle():
     return jsonify({"error": "Method not allowed"}), 405
 
 
@@ -203,6 +207,8 @@ def handle_signal():
         return jsonify(response), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+# 信号处理接口 end
+# 图片接口 start
 
 
 @signal_bp.route('/time_domain_img', methods=['GET'])
@@ -219,7 +225,7 @@ def get_time_domain_data():
         return jsonify({"error": f"num_unit out of range, should be in [0, {num_units})"}), 400
     # 准备返回图片
     img_path = os.path.join(img_save_path, f"Unit_{num_unit}_Time_Domain.png")
-    logging.info(f"img_path: {img_path}")
+    logger.info(f"img_path: {img_path}")
     if not os.path.exists(img_path):
         return jsonify({"error": "Image not found"}), 404
     return send_file(img_path, mimetype='image/png'), 200
@@ -239,7 +245,7 @@ def get_freq_domain_data():
         return jsonify({"error": f"num_unit out of range, should be in [0, {num_units})"}), 400
     # 准备返回图片
     img_path = os.path.join(img_save_path, f"Unit_{num_unit}_Frequency_Domain.png")
-    logging.info(f"img_path: {img_path}")
+    logger.info(f"img_path: {img_path}")
     if not os.path.exists(img_path) or num_units is None:
         return jsonify({"error": "Image not found"}), 404
     return send_file(img_path, mimetype='image/png'), 200
@@ -259,3 +265,121 @@ def get_bscan():
     if not os.path.exists(img_path):
         return jsonify({"error": "Image not found"}), 404
     return send_file(img_path, mimetype='image/png'), 200
+# 图片接口 end
+
+
+@signal_bp.route('/collect_start', methods=['GET', 'PUT', 'DELETE'])
+def handle_invalid_collect_start():
+    return jsonify({"error": "Method not allowed"}), 405
+
+
+@signal_bp.route('/collect_start', methods=['POST'])
+def handle_collect_start():
+    """采集信号
+    接收前端传来的信号参数，采集信号并返回
+    ---
+    parameters:
+      - name:  DA_delaytime
+        in: body
+        type: string
+        required: true
+        description: DA延迟时间（us）
+
+      - name: AD_delaytime
+        in: body
+        type: string
+        required: true
+        description: AD延迟时间（us）
+
+      - name: trigDelay
+        in: body
+        type: string
+        required: true
+        description: 触发延迟长度
+
+      - name: bin_file_path
+        in: body
+        type: string
+        required: true
+        description: 播放文件地址
+
+      - name: Frameswitch
+        in: body
+        type: string
+        required: true
+        description: 是否使用帧头
+
+      - name: collectionSaveFolder
+        in: body
+        type: string
+        required: true
+        description: 信号保存地址        
+
+      - name: Segment
+        in: body
+        type: string
+        required: true
+        description: 段长(字节)
+
+      - name: Pretrigdots
+        in: body
+        type: string
+        required: true
+        description: 预触发点数
+
+      - name: RepetitionFrequency_input
+        in: body
+        type: string
+        required: true
+        description: 触发频率（Hz）
+
+      - name: save_file_size
+        in: body
+        type: string
+        required: true
+        description: 文件大小(B)
+    """
+    data = request.get_json()
+
+    required_fields = ['DA_delaytime', 'AD_delaytime', 'trigDelay', 'bin_file_path', 'Frameswitch',
+                       'collectionSaveFolder', 'Segment', 'Pretrigdots', 'RepetitionFrequency_input', 'save_file_size']
+    for field in required_fields:
+        if field not in data:
+            return jsonify({"error": f"Missing field: {field}"}), 400
+    try:
+        # todo: 采集信号并返回
+        DA_delaytime = data['DA_delaytime']
+        AD_delaytime = data['AD_delaytime']
+        trigDelay = data['trigDelay']
+        bin_file_path = data['bin_file_path']
+        Frameswitch = data['Frameswitch']
+        collectionSaveFolder = data['collectionSaveFolder']
+        Segment = data['Segment']
+        Pretrigdots = data['Pretrigdots']
+        RepetitionFrequency_input = data['RepetitionFrequency_input']
+        save_file_size = data['save_file_size']
+        logger.info(data)
+        # todo: 采集信号并保存
+        collect_thread = threading.Thread(
+            target=start_collect, 
+            name="collect_thread", 
+            args=(DA_delaytime, AD_delaytime, trigDelay, bin_file_path, Frameswitch, collectionSaveFolder, Segment, Pretrigdots, RepetitionFrequency_input, save_file_size)
+        )
+        collect_thread.start()
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    # 返回成功响应
+    response = {
+        "message": "success",
+    }
+    return jsonify(response), 200
+
+
+@signal_bp.route('/collect_end', methods=['GET'])
+def handle_collect_end():
+    try:
+        end_collect()
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    return jsonify({"message": "success"}), 200
