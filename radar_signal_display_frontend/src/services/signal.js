@@ -6,5 +6,11 @@ export default {
     },
     handleSignal: (data) => {
         return axios.post(`${backendUrl}/api/signal/handle`, data)
+    },
+    collectSignal: (data) => {
+        return axios.post(`${backendUrl}/api/signal/collect_start`, data)
+    },
+    endCollectSignal: () => {
+        return axios.get(`${backendUrl}/api/signal/collect_end`)
     }
 }
