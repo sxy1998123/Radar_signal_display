@@ -92,6 +92,9 @@ export default {
 
     .slider-container {
         width: 100%;
+        .el-slider {
+            padding-left: 12px;
+        }
     }
 
     .el-icon-picture-outline {

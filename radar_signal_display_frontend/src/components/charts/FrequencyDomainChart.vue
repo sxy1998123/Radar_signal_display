@@ -1,17 +1,17 @@
 <template>
-    <div class="frequency-domain-chart" ref="root">
-        <span class="chart-title">频域图</span>
-        <div class="img-container">
-            <el-image :src="src" :style="{ width: '100%', height: '100%' }">
-                <div slot="error" class="image-slot">
-                    <i class="el-icon-picture-outline"></i>
-                </div>
-            </el-image>
+  <div class="frequency-domain-chart" ref="root">
+    <span class="chart-title">频域图</span>
+    <div class="img-container">
+      <el-image :src="src" :style="{ width: '100%', height: '100%' }">
+        <div slot="error" class="image-slot">
+          <i class="el-icon-picture-outline"></i>
         </div>
-        <div class="slider-container">
-            <el-slider @change="handleSliderChange" :disabled="num_unit_max === 0" :min="0" :max="num_unit_max" v-model="num_unit" show-input></el-slider>
-        </div>
+      </el-image>
     </div>
+    <div class="slider-container">
+      <el-slider @change="handleSliderChange" :disabled="num_unit_max === 0" :min="0" :max="num_unit_max" v-model="num_unit" show-input></el-slider>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -92,8 +92,10 @@ export default {
 
     .slider-container {
         width: 100%;
+        .el-slider {
+            padding-left: 12px;
+        }
     }
-
     .el-icon-picture-outline {
         font-size: 40px;
     }
