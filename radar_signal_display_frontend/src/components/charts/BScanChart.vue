@@ -6,6 +6,12 @@
         <i class="el-icon-picture-outline"></i>
       </div>
     </el-image>
+    <div class="btns">
+      <el-button v-if="src" type="text" @click="show_drawer = true">信号标记</el-button>
+    </div>
+    <el-drawer title="" :size="size" :visible.sync="show_drawer" :with-header="false">
+      <span>画布</span>
+    </el-drawer>
   </div>
 </template>
 
@@ -14,7 +20,9 @@ export default {
   name: "BScanChart",
   data() {
     return {
-      src: ""
+      src: "http://127.0.0.1:5000/api/signal/bscan_img",
+      show_drawer: false,
+      size: "80%"
     };
   },
   methods: {
@@ -53,7 +61,7 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
+  position: relative;
   .chart-title {
     width: 100%;
     text-align: left;
@@ -64,6 +72,11 @@ export default {
 
   .el-icon-picture-outline {
     font-size: 40px;
+  }
+  .btns{
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
   }
 }
 </style>

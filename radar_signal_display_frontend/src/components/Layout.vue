@@ -352,12 +352,23 @@ export default {
         console.log(error)
       }
     },
-    // 信号采集
+    // 信号采集开始
     async onCollectSignal() {
-        console.log(this.form_collect)
         try {
+          const form_collect = {
+            DA_delaytime: Number(this.form_collect.DA_delaytime),
+            AD_delaytime: Number(this.form_collect.AD_delaytime),
+            trigDelay: Number(this.form_collect.trigDelay),
+            bin_file_path: String(this.form_collect.bin_file_path),
+            Frameswitch: Boolean(this.form_collect.Frameswitch),
+            collectionSaveFolder: String(this.form_collect.collectionSaveFolder),
+            Segment: Number(this.form_collect.Segment),
+            Pretrigdots: Number(this.form_collect.Pretrigdots),
+            RepetitionFrequency_input: Number(this.form_collect.RepetitionFrequency_input),
+            save_file_size: Number(this.form_collect.save_file_size)
+          }
           this.sigCollectbtnLoading = true
-          const resp = await services.collectSignal(this.form_collect)
+          const resp = await services.collectSignal(form_collect)
           console.log(resp)
           this.$message.success('信号采集启动成功')
           this.collecting = true
@@ -368,6 +379,7 @@ export default {
           this.sigCollectbtnLoading = false
         }
     },
+    // 信号采集结束
     async onEndCollectSignal() {
         try {
           this.endCollectSignalbtnLoading = true

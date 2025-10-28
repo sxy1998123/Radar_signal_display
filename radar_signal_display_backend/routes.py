@@ -27,8 +27,6 @@ def index():
 # 显式处理相同URL的其他方法
 
 # 信号生成接口 start
-
-
 @signal_bp.route('/generate', methods=['GET', 'PUT', 'DELETE'])
 def handle_invalid_generate():
     return jsonify({"error": "Method not allowed"}), 405
@@ -347,10 +345,10 @@ def handle_collect_start():
         if field not in data:
             return jsonify({"error": f"Missing field: {field}"}), 400
     try:
-        # todo: 采集信号并返回
-        DA_delaytime = data['DA_delaytime']
-        AD_delaytime = data['AD_delaytime']
-        trigDelay = data['trigDelay']
+        # todo: 参数检查及处理
+        DA_delaytime = int(data['DA_delaytime'])
+        AD_delaytime = int(data['AD_delaytime'])
+        trigDelay = int(data['trigDelay'])
         bin_file_path = data['bin_file_path']
         Frameswitch = data['Frameswitch']
         collectionSaveFolder = data['collectionSaveFolder']
@@ -359,19 +357,37 @@ def handle_collect_start():
         RepetitionFrequency_input = data['RepetitionFrequency_input']
         save_file_size = data['save_file_size']
         logger.info(data)
+        logger.info(f"DA_delaytime: {DA_delaytime}, AD_delaytime: {AD_delaytime}, trigDelay: {trigDelay}, bin_file_path: {bin_file_path}, Frameswitch: {Frameswitch}, collectionSaveFolder: {collectionSaveFolder}, Segment: {Segment}, Pretrigdots: {Pretrigdots}, RepetitionFrequency_input: {RepetitionFrequency_input}, save_file_size: {save_file_size}")
         # todo: 采集信号并保存
+        # collect_thread = threading.Thread(
+        #     target=start_collect,
+        #     name="collect_thread",
+        #     args=(DA_delaytime, AD_delaytime, trigDelay, bin_file_path, Frameswitch, collectionSaveFolder, Segment, Pretrigdots, RepetitionFrequency_input, save_file_size)
+        # )
+        # collect_thread.start()
         collect_thread = threading.Thread(
-            target=start_collect, 
-            name="collect_thread", 
-            args=(DA_delaytime, AD_delaytime, trigDelay, bin_file_path, Frameswitch, collectionSaveFolder, Segment, Pretrigdots, RepetitionFrequency_input, save_file_size)
+            target=start_collect,
+            name="collect_thread",
+            kwargs={
+                "DA_delaytime": DA_delaytime,
+                "AD_delaytime": AD_delaytime,
+                "trigDelay": trigDelay,
+                "bin_file_path": bin_file_path,
+                "Frameswitch": Frameswitch,
+                "collectionSaveFolder": collectionSaveFolder,
+                "Segment": Segment,
+                "Pretrigdots": Pretrigdots,
+                "RepetitionFrequency_input": RepetitionFrequency_input,
+                "save_file_size": save_file_size
+            }
         )
         collect_thread.start()
-
     except Exception as e:
         return jsonify({"error": str(e)}), 500
     # 返回成功响应
     response = {
         "message": "success",
+        "status": "collecting"
     }
     return jsonify(response), 200
 
@@ -382,4 +398,8 @@ def handle_collect_end():
         end_collect()
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-    return jsonify({"message": "success"}), 200
+    response = {
+        "message": "success",
+        "status": "collectend"
+    }
+    return jsonify(response), 200
