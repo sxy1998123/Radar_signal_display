@@ -4,6 +4,7 @@ import App from './App.vue'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import axios from 'axios'
+import router from './router'
 
 // axios
 Vue.prototype.$axios = axios;
@@ -15,5 +16,6 @@ const backendUrl = window.electronAPI && window.electronAPI.backendUrl ? window.
 Vue.prototype.$backendUrl = backendUrl;
 Vue.config.productionTip = false
 new Vue({
-  render: h => h(App),
+  router,
+  render: h => h(App)
 }).$mount('#app')
