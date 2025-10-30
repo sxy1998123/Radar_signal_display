@@ -176,7 +176,6 @@ export default {
         ]
       },
       sigGeneratebtnLoading: false, // 信号生成按钮loading状态
-      sigHandlebtnLoading: false, // 信号处理按钮loading状态
       sigCollectbtnLoading: false, // 信号开始采集按钮loading状态
       sigEndCollectbtnLoading: false, // 信号结束采集按钮loading状态
 
@@ -278,6 +277,10 @@ export default {
     },
     // 信号采集结束
     async onEndCollectSignal() {
+      if (!this.collecting) {
+        this.$message.warning('请先启动信号采集')
+        return false
+      }
         try {
           this.endCollectSignalbtnLoading = true
           const resp = await services.endCollectSignal()
@@ -332,7 +335,6 @@ export default {
   border: 1px solid #ccc;
   border-radius: 4px;
   padding: 12px;
-  margin-bottom: 12px;
   text-align: left;
 
   .form-title {
@@ -367,9 +369,15 @@ export default {
       height: 100%;
       box-sizing: border-box;
       overflow: auto;
+      /deep/ .el-card__body{
+        box-sizing: border-box;
+        height: 100%;
+      }
       .forms{
-          display: flex;
-          gap: 24px;
+        height: 100%;
+        display: grid;
+        grid-template-columns: auto auto;
+        gap: 12px;
           >.el-form{
             flex:1;
           }

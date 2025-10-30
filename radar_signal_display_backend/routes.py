@@ -154,7 +154,7 @@ def handle_signal():
         in: body
         type: string
         required: true
-        description: 参考I相信号文件夹地址
+        description: 参考Q相信号文件夹地址
 
       - name: window_type
         in: body

@@ -7,13 +7,13 @@ channelcount = 0
 collecting = False
 
 
-def start_collect(DA_delaytime=0, AD_delaytime=0, trigDelay=0, bin_file_path="", Frameswitch=False, save_path="", Segment=1024, Pretrigdots=0, RepetitionFrequency_input=60, save_file_size=1024*500):
+def start_collect(DA_delaytime=0, AD_delaytime=0, trigDelay=0, bin_file_path="", Frameswitch=False, collectionSaveFolder="", Segment=1024, Pretrigdots=0, RepetitionFrequency_input=60, save_file_size=1024*500):
     global unCardIndex, channelcount
     global collecting  # 全局变量，用于判断是否正在采集
     try:
         # 参数处理
         required_fields = ["DA_delaytime", "AD_delaytime", "trigDelay", "bin_file_path", "Frameswitch",
-                           "save_path", "Segment", "Pretrigdots", "RepetitionFrequency_input", "save_file_size"]
+                           "collectionSaveFolder", "Segment", "Pretrigdots", "RepetitionFrequency_input", "save_file_size"]
         for field in required_fields:
             if locals()[field] == "":
                 print(f"参数{field}不能为空")
@@ -25,8 +25,8 @@ def start_collect(DA_delaytime=0, AD_delaytime=0, trigDelay=0, bin_file_path="",
         bin_file_path = os.path.normpath(bin_file_path)  # bin文件路径
         Frameswitch = int(Frameswitch)  # 设置帧头(0:禁用  1:使能)
         # bin_file_path = "D:\\Project2025\\Radar_signal_display_test\\I_signal.bin"
-        save_path = os.path.normpath(save_path)  # 保存路径
-        # save_path = "D:\\Project2025\\Radar_signal_display_test\\collect"
+        # collectionSaveFolder = os.path.normpath(collectionSaveFolder)  # 保存路径
+        # collectionSaveFolder = "D:\\Project2025\\Radar_signal_display_test\\collect"
         Segment = int(Segment)  # 段长
         Pretrigdots = int(Pretrigdots)  # 预触发点数
         RepetitionFrequency_input = int(RepetitionFrequency_input)  # 重复频率
@@ -39,7 +39,7 @@ def start_collect(DA_delaytime=0, AD_delaytime=0, trigDelay=0, bin_file_path="",
         print("AD延迟时间:%d" % AD_delaytime)
         print("bin文件路径:%s" % bin_file_path)
         print("是否设置帧头:%s" % Frameswitch)
-        print("保存路径:%s" % save_path)
+        print("保存路径:%s" % collectionSaveFolder)
         print("段长:%dB" % Segment)
         print("预触发点数:%d" % Pretrigdots)
         print("触发频率:%dHz" % RepetitionFrequency_input)
@@ -136,7 +136,7 @@ def start_collect(DA_delaytime=0, AD_delaytime=0, trigDelay=0, bin_file_path="",
 
         # 设置文件保存路径
         QT_BoardSetInitializeOperation(unCardIndex)
-        QT_BoardSetTheFilePathSizeName(unCardIndex, 0, ctypes.c_char_p(save_path.encode()), save_file_size, "0")
+        QT_BoardSetTheFilePathSizeName(unCardIndex, 0, ctypes.c_char_p(collectionSaveFolder.encode()), save_file_size, "0")
 
         # 开始播放
         QT_BoardSetupRepPlayData(unCardIndex, 1)
@@ -182,7 +182,7 @@ if __name__ == '__main__':
         trigDelay=0,
         bin_file_path="D:\\Project2025\\Radar_signal_display_test\\I_signal.bin",
         Frameswitch=False,
-        save_path="D:\\Project2025\\Radar_signal_display_test\\collect",
+        collectionSaveFolder="D:\\Project2025\\Radar_signal_display_test\\collect",
         Segment=1024,
         Pretrigdots=0,
         RepetitionFrequency_input=60,

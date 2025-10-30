@@ -13,11 +13,14 @@
               <el-input type="textarea" v-model="form_handle.referenceSig_I" :readonly="true"></el-input>
               <el-button type="text" @click="selectReferenceSigFile_I">选择I相参考信号文件</el-button>
             </div>
+          </el-form-item>
+          <el-form-item label="参考信号文件地址" prop="referenceSig_Q">
             <div>
               <el-input type="textarea" v-model="form_handle.referenceSig_Q" :readonly="true"></el-input>
               <el-button type="text" @click="selectReferenceSigFile_Q">选择Q相参考信号文件</el-button>
             </div>
           </el-form-item>
+
           <el-form-item label="加窗处理" prop="window_type">
             <el-select v-model="form_handle.window_type" placeholder="请选择信号类型">
               <el-option label="加窗" value="1"></el-option>
@@ -35,7 +38,7 @@
             </el-select>
           </el-form-item>
           <div class="btns">
-            <el-button :loading="sigHandlebtnLoading" type="primary" @click="onHandleSignal">信号处理</el-button>
+            <el-button :loading="sigHandlebtnLoading" type="primary" @click="onHandleBtnClick">信号处理</el-button>
           </div>
         </el-form>
       </el-card>
@@ -87,6 +90,9 @@ export default {
         referenceSig_I: [
           { required: true, message: '请选择I相参考信号文件', trigger: 'change' }
         ],
+        referenceSig_Q: [
+          { required: false, message: '请选择Q相参考信号文件', trigger: 'change' }
+        ],
         window_type: [
           { required: true, message: '请选择加窗类型', trigger: 'change' }
         ],
@@ -133,7 +139,18 @@ export default {
     /***** 工具函数end *****/
     /***** 业务函数start *****/
     // 信号处理
-    onHandleSignal() {
+    onHandleBtnClick() {
+      // todo 表单校验
+      this.$refs.form.validate((valid) => {
+        if (valid) {
+          this.handleSignal()
+        } else {
+          console.log(valid)
+          return false
+        }
+      })
+    },
+    handleSignal() {
       const {
         collectionSigFolder,
         referenceSig_I,
@@ -141,9 +158,9 @@ export default {
         window_type,
         other_process
       } = this.form_handle
-      // todo 表单校验
-      // console.log(collectionSigFolder, referenceSig_I, referenceSig_Q, window_type, other_process);
-      // todo 调用接口
+
+      console.log(collectionSigFolder, referenceSig_I, referenceSig_Q, window_type, other_process);
+      // todo 整理函数参数 调用接口
       try {
         this.sigHandlebtnLoading = true
         services.handleSignal({

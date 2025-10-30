@@ -21,4 +21,4 @@ app.register_blueprint(signal_bp, url_prefix="/api/signal")
 Swagger(app)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)
